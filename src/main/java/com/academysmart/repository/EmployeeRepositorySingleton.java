@@ -1,8 +1,10 @@
 package com.academysmart.repository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.academysmart.controller.JDBCTest;
 import com.academysmart.exception.IncorrectEmailException;
 import com.academysmart.exception.ServletException;
 import com.academysmart.model.Employee;
@@ -19,7 +21,7 @@ public class EmployeeRepositorySingleton {
 	}
 
 	public int addEmployee(String name, String sirname, String email)
-			throws ServletException {
+			throws ServletException, SQLException {
 		// TODO implement method that adds an employee to repository
 		// This method should check that email is not used by other employees
 		
@@ -39,8 +41,9 @@ public class EmployeeRepositorySingleton {
 		empl.setName(name);
 		empl.setSirname(sirname);
 		empl.setId(Employee.getCount());
-		list.add(empl);
-
+//		list.add(empl);
+		JDBCTest test = new JDBCTest();
+		test.dbFill(name, sirname, email);
 		return 0;
 	}
 

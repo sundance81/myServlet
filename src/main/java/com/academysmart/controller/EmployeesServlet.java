@@ -2,6 +2,7 @@ package com.academysmart.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,9 +21,10 @@ public class EmployeesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		// TODO implement logic to process GET requests
-		response.setContentType("text/html");
+		response.setContentType("text/html; charset=UTF-8");
 		request.setAttribute("employees", emp.getAllEmployees());
 		getServletContext().getRequestDispatcher("/employee.jsp").forward(request, response);
+		request.setCharacterEncoding("UTF-8"); 
 	}
 
 	protected void doPost(HttpServletRequest request,
@@ -39,6 +41,9 @@ public class EmployeesServlet extends HttpServlet {
 						request.getParameter("email"));
 			} catch (com.academysmart.exception.ServletException e) {
 				request.setAttribute("errMsg", e);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} 
 	
 		this.doGet(request, response);
